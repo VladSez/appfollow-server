@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТЗ AppFollow Фронтенд</title>
+</head>
+<body>
+    <h2>Тестовое задание AppFollow для фронтенд разработчика.</h2>
+    <p>Нужно спроектировать страницу с модальным окном для ввода биллинг данных компании.</p>
+
+    <h3>Требования</h3>
+    <p>1. На странице кнопка "Ввести данные", по нажатию на которую открывается модалка. Модалку можно закрыть.</p>
+    <p>2. В модальном окне должны быть следующие поля с валидацией:</p>
+    <table border="1" style="border-collapse: collapse">
+        <tr>
+            <th>Поле</th>
+            <th>Тип</th>
+            <th>Валидация</th>
+            <th>Заметка</th>
+        </tr>
+        <tr>
+           <td>Name</td>
+           <td>Input</td>
+           <td>Минимум 2 слова по 2 буквы</td>
+           <td>Ахтунг! Две буквы, не символа</td>
+        </tr>
+        <tr>
+           <td>Company</td>
+           <td>Input</td>
+           <td>Минимум 3 символа</td>
+           <td></td>
+        </tr>
+        <tr>
+            <td>Country</td>
+            <td>Dropdown</td>
+            <td>Страна должна быть из списка</td>
+            <td>Список стран со штатами приходит с /billing_info в поле countries</td>
+        </tr>
+        <tr>
+            <td>State</td>
+            <td>Dropdown</td>
+            <td>Штат должен быть из списка соответствующей страны</td>
+            <td>Массив штатов есть не у каждой страны</td>
+        </tr>
+        <tr>
+            <td>VAT ID</td>
+            <td>Input</td>
+            <td>Не пустое только у стран из ЕС, валидировать лучше библиотекой</td>
+            <td>Инпут показывается только у стран из ЕС</td>
+        </tr>
+        <tr>
+            <td>ZIP Code</td>
+            <td>Input</td>
+            <td>Минимум 3 символа</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>Textarea</td>
+            <td>Минимум 7 символов</td>
+            <td></td>
+        </tr>
+    </table>
+    <p>3. Модалка должна инициализироваться с "сохраненными" данными с бекенда, получаемыми с /billing_info.</p>
+    <p>4. Данные должны отправляться на /save. После получения {ok: 1} с сервера модальное окно закрывается.</p>
+    <p>5. Написать это все на React (cra или кастомный конфиг), остальные библиотеки по желанию, но без фанатизма.</p>
+    <p>5.1. Библиотеки для форм, например redux-forms использовать нельзя.</p>
+    <p>
+        Для экономии времени рекомендуем использовать UI библиотеку, у нас <a target="blank" href="https://react.semantic-ui.com/">semantic-ui</a>.<br>
+        Сервер запускатся с помощью команды `node index.js`.
+    </p>
+
+    <h3>Как это выглядит у нас</h3>
+    <p>Вы можете сделать модалку любой, в нашем проде она выглядит вот так:</p>
+    <details>
+        <summary>Макет под спойлером</summary>
+        <img src="/modal.png" width="500">
+    </details>
+
+    <h3>Описание API</h3>
+    <pre>
+        GET: /billing_info
+        {
+            countries: Array<{
+                country: string,
+                states?: &lt;string&gt;
+            }>
+
+            data: {
+                company: string,
+                country: string,
+                vat: string,
+                zip_code: string,
+                city: string,
+                address: string,
+                state: string,
+            }
+        }
+
+
+        POST: /save
+        {
+            company: string,
+            country: string,
+            vat: string,
+            zip_code: string,
+            city: string,
+            address: string,
+            state: string,
+        }
+    </pre>
+
+    <h3>Что будем проверять:</h3>
+    <ol>
+        <li>Чистоту кода.</li>
+        <li>Разбиение кода на куски (можно ли назвать это архитектурой в таком маленьком приложении?).</li>
+        <li>Отсутствие выстрелов по ногам.</li>
+        <li>Соотвествие требованиям и отсутствие багов.</li>
+        <li>Бест практисы.</li>
+    </ol>
+</body>
+<style>
+    body {
+        max-width: 750px;
+        color: #0a1b2a;
+        font-size: 14px;
+        margin: 25px 50px;
+    }
+    h3 {
+        margin-top: 50px;
+    }
+    td, th {
+        padding: 5px;
+    }
+</style>
+</html>
